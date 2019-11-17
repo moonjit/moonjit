@@ -15,8 +15,8 @@
 
 MAJVER=  2
 MINVER=  1
-RELVER=  0
-PREREL=  -beta3
+RELVER=  1
+PREREL=
 VERSION= $(MAJVER).$(MINVER).$(RELVER)$(PREREL)
 ABIVER=  5.1
 
@@ -113,12 +113,12 @@ endif
 LUAJIT_BIN= src/luajit
 
 default all $(LUAJIT_BIN):
-	@echo "==== Building LuaJIT $(VERSION) ===="
+	@echo "==== Building moonjit $(VERSION) ===="
 	$(MAKE) -C src
-	@echo "==== Successfully built LuaJIT $(VERSION) ===="
+	@echo "==== Successfully built moonjit $(VERSION) ===="
 
 install: $(LUAJIT_BIN)
-	@echo "==== Installing LuaJIT $(VERSION) to $(PREFIX) ===="
+	@echo "==== Installing moonjit $(VERSION) to $(PREFIX) ===="
 	$(MKDIR) $(INSTALL_DIRS)
 	cd src && $(INSTALL_X) $(FILE_T) $(INSTALL_T)
 	cd src && test -f $(FILE_A) && $(INSTALL_F) $(FILE_A) $(INSTALL_STATIC) || :
@@ -134,7 +134,7 @@ install: $(LUAJIT_BIN)
 	  $(RM) $(FILE_PC).tmp
 	cd src && $(INSTALL_F) $(FILES_INC) $(INSTALL_INC)
 	cd src/jit && $(INSTALL_F) $(FILES_JITLIB) $(INSTALL_JITLIB)
-	@echo "==== Successfully installed LuaJIT $(VERSION) to $(PREFIX) ===="
+	@echo "==== Successfully installed moonjit $(VERSION) to $(PREFIX) ===="
 	@echo ""
 	@echo "Note: the development releases deliberately do NOT install a symlink for luajit"
 	@echo "You can do this now by running this command (with sudo):"
@@ -144,7 +144,7 @@ install: $(LUAJIT_BIN)
 
 
 uninstall:
-	@echo "==== Uninstalling LuaJIT $(VERSION) from $(PREFIX) ===="
+	@echo "==== Uninstalling moonjit $(VERSION) from $(PREFIX) ===="
 	$(UNINSTALL) $(INSTALL_T) $(INSTALL_STATIC) $(INSTALL_DYN) $(INSTALL_SHORT1) $(INSTALL_SHORT2) $(INSTALL_MAN)/$(FILE_MAN) $(INSTALL_PC)
 	for file in $(FILES_JITLIB); do \
 	  $(UNINSTALL) $(INSTALL_JITLIB)/$$file; \
@@ -154,23 +154,23 @@ uninstall:
 	  done
 	$(LDCONFIG) $(INSTALL_LIB)
 	$(RMDIR) $(UNINSTALL_DIRS) || :
-	@echo "==== Successfully uninstalled LuaJIT $(VERSION) from $(PREFIX) ===="
+	@echo "==== Successfully uninstalled moonjit $(VERSION) from $(PREFIX) ===="
 
 check: $(LUAJIT_BIN)
-	@echo "==== Running tests for LuaJIT $(VERSION) ===="
+	@echo "==== Running tests for moonjit $(VERSION) ===="
 	cd test && ../$^ test.lua
-	@echo "==== All tests for LuaJIT $(VERSION) succeeded ===="
+	@echo "==== All tests for moonjit $(VERSION) succeeded ===="
 
 # It is assumed that libluajit.a is built in the process of building LUAJIT_BIN.
 bench: $(LUAJIT_BIN)
-	@echo "==== Running benchmark for LuaJIT $(VERSION) ===="
+	@echo "==== Running benchmark for moonjit $(VERSION) ===="
 	make -C bench FILE_A=$(FILE_A)
-	@echo "==== Successfully finished running benchmark for LuaJIT $(VERSION) ===="
+	@echo "==== Successfully finished running benchmark for moonjit $(VERSION) ===="
 
 ##############################################################################
 
 amalg:
-	@echo "Building LuaJIT $(VERSION)"
+	@echo "Building moonjit $(VERSION)"
 	$(MAKE) -C src amalg
 
 clean:
