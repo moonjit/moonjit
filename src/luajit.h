@@ -30,9 +30,9 @@
 
 #include "lua.h"
 
-#define LUAJIT_VERSION		"moonjit 2.1.1"
-#define LUAJIT_VERSION_NUM	20101  /* Version 2.1.1 = 02.01.01. */
-#define LUAJIT_VERSION_SYM	luaJIT_version_2_1_1
+#define LUAJIT_VERSION		"LuaJIT 2.1.2"
+#define LUAJIT_VERSION_NUM	20102  /* Version 2.1.2 = 02.01.02. */
+#define LUAJIT_VERSION_SYM	luaJIT_version_2_1_2
 #define LUAJIT_COPYRIGHT	"Copyright (C) 2019 moonjit developers"
 #define LUAJIT_URL		"https://github.com/moonjit/moonjit"
 
