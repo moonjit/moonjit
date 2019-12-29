@@ -1,8 +1,6 @@
 alias_alloc.lua
 debug.lua
 fori_coerce.lua
-gc_trace.lua
 gc_rechain.lua
 gcstep.lua
-hook_norecord.lua
 parse_comp.lua
