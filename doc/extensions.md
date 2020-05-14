@@ -181,7 +181,7 @@ that are unlikely to break existing code are unconditionally enabled:
 * `debug.upvalueid()` and `debug.upvaluejoin()`.
 * Lua/C API extensions: `lua_version()` `lua_upvalueid()` `lua_upvaluejoin()`
   `lua_loadx()` `lua_copy()` `lua_tonumberx()` `lua_tointegerx()` `lua_len()`
-  `lua_rawlen()` `lua_absindex()` `lua_pushglobal()`
+  `lua_rawlen()` `lua_absindex()` `lua_pushglobal()` `lua_rawgetp()` `lua_rawsetp()`
   `luaL_fileresult()` `luaL_execresult()` `luaL_loadfilex()`
   `luaL_loadbufferx()` `luaL_traceback()` `luaL_setfuncs()` `luaL_pushmodule()`
   `luaL_newlibtable()` `luaL_newlib()` `luaL_testudata()` `luaL_setmetatable()`

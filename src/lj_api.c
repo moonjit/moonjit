@@ -897,6 +897,21 @@ LUA_API void lua_rawgeti(lua_State *L, int idx, int n)
   incr_top(L);
 }
 
+LUA_API void lua_rawgetp(lua_State *L, int idx, const void *p)
+{
+  cTValue *v, *t = index2adr(L, idx);
+  TValue key;
+  api_check(L, tvistab(t));
+  setlightudV(&key, checklightudptr(L, (void *)p));
+  v = lj_tab_get(L, tabV(t), &key);
+  if (v) {
+    copyTV(L, L->top, v);
+  } else {
+    setnilV(L->top);
+  }
+  incr_top(L);
+}
+
 LUA_API int lua_getmetatable(lua_State *L, int idx)
 {
   cTValue *o = index2adr(L, idx);
@@ -1069,6 +1084,20 @@ LUA_API void lua_rawseti(lua_State *L, int idx, int n)
   TValue *dst, *src;
   api_checknelems(L, 1);
   dst = lj_tab_setint(L, t, n);
+  src = L->top-1;
+  copyTV(L, dst, src);
+  lj_gc_barriert(L, t, dst);
+  L->top = src;
+}
+
+LUA_API void lua_rawsetp(lua_State *L, int idx, const void *p)
+{
+  GCtab *t = tabV(index2adr(L, idx));
+  TValue *dst, *src;
+  TValue key;
+  api_checknelems(L, 1);
+  setlightudV(&key, checklightudptr(L, (void *)p));
+  dst = lj_tab_set(L, t, &key);
   src = L->top-1;
   copyTV(L, dst, src);
   lj_gc_barriert(L, t, dst);
