@@ -868,7 +868,7 @@ static void asm_href(ASMState *as, IRIns *ir, IROp merge)
       emit_lso(as, A64I_LDRx, scr, dest, offsetof(Node, key.u64));
     }
   } else {
-    lua_assert(irt_ispri(kt) && !irt_isnil(kt));
+    lj_assertA(irt_ispri(kt) && !irt_isnil(kt), "bad HREF key type");
     emit_nm(as, A64I_CMPw, scr, type);
     emit_lso(as, A64I_LDRx, scr, dest, offsetof(Node, key));
   }
@@ -1296,7 +1296,6 @@ static void asm_cnew(ASMState *as, IRIns *ir)
     else
       r = ra_alloc1(as, ir->op2, allow);
 
-    lua_assert(sz == 4 || sz == 8);
     lj_assertA(sz == 4 || sz == 8, "bad CNEWI size %d", sz);
     emit_lso(as, sz == 8 ? A64I_STRx : A64I_STRw, r, RID_RET, ofs);
   } else if (ir->op2 != REF_NIL) {  /* Create VLA/VLS/aligned cdata. */
