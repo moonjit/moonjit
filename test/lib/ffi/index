@@ -5,13 +5,17 @@ err.lua
 exdata.lua
 ffi_arith_ptr.lua
 ffi_bitfield.lua
+ffi_callback.lua
 ffi_call.lua
 ffi_const.lua
 ffi_enum.lua
+ffi_gcstep_recursive.lua
+ffi_jit_arith.lua
 ffi_jit_call.lua +luajit>=2.1
 ffi_jit_conv.lua
 ffi_lex_number.lua
 ffi_metatype.lua
+ffi_new.lua
 ffi_parse_basic.lua
 ffi_parse_cdef.lua
 istype.lua

@@ -1,6 +1,6 @@
 local ffi = require("ffi")
 
-do
+do --- ffi-jit-arith-test-1
   local a = ffi.new("int64_t[?]", 101)
   for i=1,100 do a[i] = -2 end
   for i=1,100 do a[i] = i end
@@ -29,7 +29,7 @@ do
   assert(w == 5050)
 end
 
-do
+do --- ffi-jit-arith-test-2
   local a = ffi.new("uint64_t[?]", 101)
   for i=1,100 do a[i] = i end
   local x, y, m = 0ull, 0ull, 0ull
@@ -48,32 +48,32 @@ do
   assert(z == 0x123456789abcdef0ull % 100)
 end
 
-do
+do --- ffi-jit-arith-test-3
   local x = 0ll
   for i=1,100 do x = x + (-2ll) ^ (bit.band(i, 15)+1ll) end
   assert(x == 262120)
 end
 
-do
+do --- ffi-jit-arith-test-4
   local x, a = 0ll, -2ll
   for i=1,100 do x = x + a ^ (bit.band(i, 15)+1ll) end
   assert(x == 262120)
 end
 
-do
+do --- ffi-jit-arith-test-5
   local x = 0ull
   for i=1,100 do x = x + (-2ll) ^ (bit.band(i, 15)+1ull) end
   assert(x == 262120)
 end
 
-do
+do --- ffi-jit-arith-test-6
   for i=1,200 do local j = bit.band(i, 7); assert((j == 0ll) == (j == 0)) end
   for i=1,200 do assert((i < 100ll) == (i < 100)) end
   for i=1,200 do assert((i <= 100ll) == (i <= 100)) end
   for i=-100,100 do assert((i > 100ull) == (i < 0)) end
 end
 
-do
+do --- ffi-jit-arith-test-7
   local a = ffi.new("int64_t[?]", 100)
   for i=0,99 do
     a[i] = math.random(0, 2^32)*0x100000000LL + math.random(0, 2^32)
@@ -121,13 +121,13 @@ do
   end
 end
 
-do
+do --- ffi-jit-arith-test-8
   local a, b = ffi.new("char *"), ffi.new("char *")
   local z
   for i=1,100 do z = a-b end
 end
 
-do
+do --- ffi-jit-arith-test-9
   local x = true
   local abc = ffi.cast("const char *", "abc")
   for i=1,100 do x = abc == "abc" end
@@ -143,7 +143,7 @@ do
 end
 
 -- ra_destpair
-do
+do --- ffi-jit-arith-test-10
   local x, y = 0, 0
   for i=1,100 do
     x = x + i/3LL

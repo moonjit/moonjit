@@ -2,7 +2,6 @@ alias_alloc.lua
 coro_traceback.lua
 coro_yield.lua
 debug.lua
-debug_gc.lua
 dualnum.lua
 for_dir.lua
 fori_coerce.lua

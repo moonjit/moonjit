@@ -19,7 +19,7 @@ local function obj_to_id(ptr)
   return tonumber(ffi.cast('uintptr_t', ffi.cast('void *', ptr)))
 end
 
-function obj_type_Buffer_push(val)
+local function obj_type_Buffer_push(val)
   local obj = Buffer(val)
   local id = obj_to_id(obj)
   nobj_obj_flags[id] = true
@@ -31,7 +31,7 @@ local function Buffer_new(len)
   return obj_type_Buffer_push(buf)
 end
 
-function obj_type_Buffer_delete(obj)
+local function obj_type_Buffer_delete(obj)
   local id = obj_to_id(obj)
   if not nobj_obj_flags[id] then return nil end
   nobj_obj_flags[id] = nil
@@ -52,15 +52,17 @@ Buffer_mt.__index.close = Buffer_close
 
 ffi.metatype(Buffer, Buffer_mt)
 
-local cdata = {}
-for x=1,2 do
-  cdata = {}
-  for i=1,N do
-    cdata[i] = Buffer_new(1)
+do --- test-ffi-gcstep-recursive
+  
+  local cdata = {}
+  for x=1,2 do
+    cdata = {}
+    for i=1,N do
+      cdata[i] = Buffer_new(1)
+    end
+    for i=1,N do
+      cdata[i]:close()
+    end
+    cdata = nil
   end
-  for i=1,N do
-    cdata[i]:close()
-  end
-  cdata = nil
 end
-

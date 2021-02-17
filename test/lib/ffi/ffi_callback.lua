@@ -5,7 +5,7 @@ ffi.cdef[[
 void qsort(void *base, size_t nmemb, size_t size,
 	   int (*compar)(const uint8_t *, const uint8_t *));
 ]]
-
+do --- test-1
 do
   local cb = ffi.cast("int (*)(int, int, int)", function(a, b, c)
     return a+b+c
@@ -155,4 +155,4 @@ do
   debug.sethook(function() debug.sethook(nil, "", 0); f() end, "", 1)
   local x
 end
-
+end
